@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h3 {
+            margin-bottom: 1.5rem;
+            color: #343a40;
+        }
+
+        .form-container .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .form-container .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="m-0 pt-5 w-100 bg-img-2">
+        <form id="loginForm" action="/auth/login" method="POST" class="form-container">
+            <h3 class="text-center mb-3">User Login</h3>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email.." required autofocus>
+                <div id="emailError" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Enter password.." required>
+                <div id="passwordError" class="text-danger"></div>
+            </div>
+            <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LeVaeopAAAAACV6ljhUaA7NQIa3snZ8r3BQeUCC"></div>
+            <div id="recaptchaError" class="text-danger text-center mt-2"></div>
+            <button type="button" onclick="checkForm()" class="btn btn-primary d-block m-auto mt-4">Submit</button>
+            
+            <div class="mt-3 text-center">
+                <span>Don't have an account?</span>
+                <a href="/auth/signup">Signup here</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function recaptchaCallback() {
+            document.getElementById('recaptchaError').innerText = ''; // Clear any previous error message
+        }
+
+        function checkForm() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var response = grecaptcha.getResponse();
+
+            var emailError = document.getElementById('emailError');
+            var passwordError = document.getElementById('passwordError');
+            var recaptchaError = document.getElementById('recaptchaError');
+
+            var valid = true;
+
+            emailError.innerText = '';
+            passwordError.innerText = '';
+            recaptchaError.innerText = '';
+
+            // Email format validation using a regular expression
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '') {
+                emailError.innerText = 'Please fill out the email field.';
+                valid = false;
+            } else if (!emailPattern.test(email)) {
+                emailError.innerText = 'Please enter a valid email address.';
+                valid = false;
+            }
+
+            if (password === '') {
+                passwordError.innerText = 'Please fill out the password field.';
+                valid = false;
+            }
+
+            if (response.length === 0) {
+                recaptchaError.innerText = 'Please verify that you are not a robot.';
+                valid = false;
+            }
+
+            if (valid) {
+                document.getElementById('loginForm').submit();
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

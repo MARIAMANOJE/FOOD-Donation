@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <!-- Include other nav-items here -->
+                <% if (users) { %>
+                    <% if (users.role === 'admin') { %>
+                        <li><a href="./admin/dashborad">Admin Dashboard</a></li>
+                    <% } else if (users.role === 'agent') { %>
+                        <li><a href="/agent/dashborad">Agent Dashboard</a></li>
+                    <% } else if (users.role === 'donor') { %>
+                        <li><a href="/donor/dashborad">Donor Dashboard</a></li>
+                    <% } %>
+                <% } %>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Include content specific to each page here -->
+        <%- body %>
+    </main>
+    
+    <footer>
+        <!-- Include footer content here -->
+    </footer>
+</body>
+</html>

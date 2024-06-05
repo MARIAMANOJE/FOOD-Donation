@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-container h3 {
+            margin-bottom: 1.5rem;
+            color: #343a40;
+        }
+        
+        .form-container .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        
+        .form-container .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <%- include('../partials/donorSidebar') %>
+        
+        <div id="main-wrapper">
+            <div class="bg-white shadow-sm p-3">
+                <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+                <h5 class="m-0 color-theme d-inline-block">Donate</h5>
+            </div>
+            
+            <form action="/donor/donate" method="POST" class="border m-4 my-3 p-4 bg-white rounded-2 shadow">
+                <div class="mb-4">
+                    <label for="food" class="form-label">Food type</label>
+                    <input type="text" name="donation[foodType]" class="form-control" id="food" placeholder="Enter food.." required autofocus>
+                </div>
+                
+                <div class="row">
+                    <div class="mb-4 col-sm-6">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="text" name="donation[quantity]" class="form-control" id="quantity" placeholder="Enter quantity of food.." required>
+                    </div>
+                    
+                    <div class="mb-4 col-sm-6">
+                        <label for="time" class="form-label">Time of cooking</label>
+                        <input type="text" name="donation[cookingTime]" class="form-control" id="time" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="mb-4 col-sm-8">
+                        <label for="address" class="form-label">Address to collect</label>
+                        <input type="text" name="donation[address]" class="form-control" id="address" placeholder="Enter address.." value="<%= currentUser.address %>" required>
+                    </div>
+                    
+                    <div class="mb-4 col-sm-4">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="number" name="donation[phone]" class="form-control" id="phone" placeholder="Enter phone.." value="<%= currentUser.phone %>" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="msg" class="form-label">Want to write some message?</label>
+                    <textarea type="text" name="donation[donorToAdminMsg]" class="form-control" id="msg" placeholder="You can write here some msg.."></textarea>
+                </div>
+                
+                <button type="submit" class="btn w-75 d-block m-auto mt-4">Submit</button>
+            </form>
+            
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#time", {
+                enableTime: true,
+                dateFormat: "d-m-y H:i",
+                defaultDate: new Date(),
+                minuteIncrement: 1
+            });
+        });
+    </script>
+</body>
+</html>
