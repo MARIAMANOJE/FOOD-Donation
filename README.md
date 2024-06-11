@@ -1,7 +1,7 @@
 # Food Donation Management System
 
 A web application which is useful for management of food donation and collection activities.  
-[View Demo](https://food-aid.onrender.com/)
+
 
 <img src="https://user-images.githubusercontent.com/86913048/226953269-e6ae0484-ab78-4c77-b199-aef793502d8d.png" width="70%">
 
@@ -120,5 +120,5 @@ For running the application:
 
 ## Contact
 
-- Email: aayush5521186@gmail.com
-- Linkedin: https://www.linkedin.com/in/aayush12/
+- Email: mariamanoje77@gmail.com
+- Linkedin: https://www.linkedin.com/in/mariamanoje/
